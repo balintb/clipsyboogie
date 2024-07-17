@@ -1,0 +1,62 @@
+# Clipsyboogie - cli clipboard logging
+
+`clipsyboogie` is a simple cli tool to capture and retrieve the current system clipboard contents.
+
+> [!CAUTION]
+> `clipsyboogie` has been tested on macOS only. `install` and `uninstall` are macOS-specific.
+
+## Installation
+
+```sh
+$ go install github.com/balintb/clipsyboogie@latest
+```
+
+Make sure you have Go environment variables set up, especially `GOPATH`, and your `PATH` with `$GOPATH/bin`.
+
+To install a LaunchAgent (run in the background), use
+
+```sh
+$ clipsyboogie install
+```
+
+## Configuration
+
+Current configuration options are limited to command line flags and environment variables, notably
+
+- `--interval` or `$CBG_INTERVAL`: polling interval in ms. Any clipboard contents that live for a shorter period of time are not guaranteed to be captured. Minimum value has been set at `10` for performance reasons.
+- `--run-at-load` to enable running LaunchAgent on load. Default `true`.
+
+Pull requests are welcome for a proper file-based config. 
+
+## Usage
+
+`clipsyboogie [global options] command [command options]`
+
+### Commands
+
+```
+add, a        Record clipboard content
+get, g        Get latest N entries
+install, i    Install LaunchAgent
+uninstall, u  Uninstall LaunchAgent
+listen, l     Listen (poll) for clipboard changes
+help, h       Shows a list of commands or help for one command
+```
+
+To start in the background, `clipsyboogie install` creates a plist in `~/Library/LaunchAgents/com.balintb.clipsyboogie.plist`, which can be loaded with `launchctl load ~/Library/LaunchAgents/com.balintb.clipsyboogie.plist`.
+
+## Retrieving stored clipboard content
+
+`clipsyboogie` stores clipboard content in `~/.clipsyboogie/clips.db` as an SQLite database. You can open it with `sqlite` or use `clipsyboogie get [N]` to retrieve the last `N` (default `1`) entries.
+
+## Roadmap
+
+- [ ] Add `load` / `unload` commands to load/unload via `launchctl`
+- [ ] File-based configuration
+- [ ] Configurable retention period or number of items to store
+
+## License
+
+[MIT](LICENSE)
+
+Clipsyboogie Copyright [@balintb](https://balint.click/github)
