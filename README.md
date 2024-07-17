@@ -12,11 +12,33 @@
 
 ## Installation
 
+### Homebrew
+
+The easiest way to install `clipsyboogie` is via [Homebrew](https://brew.sh):
+
+```console
+brew install balintb/tap/clipsyboogie
+```
+
+If this fails, you might need to add the tap first:
+
+```console
+brew tap balintb/tap
+```
+
+And retry `brew install balintb/tap/clipsyboogie`.
+
+### Go
+
+To install via Go,
+
 ```console
 go install github.com/balintb/clipsyboogie@latest
 ```
 
 Make sure you have Go environment variables set up, especially `GOPATH`, and your `PATH` with `$GOPATH/bin`.
+
+### LaunchAgent
 
 To install a LaunchAgent (run in the background), use
 
@@ -59,7 +81,7 @@ To start in the background, `clipsyboogie install` creates a plist in `~/Library
 - [ ] Add `load` / `unload` commands to load/unload via `launchctl`
 - [ ] File-based configuration
 - [ ] Configurable retention period or number of items to store
-- [ ] Homebrew tap
+- [x] Homebrew tap
 
 ## License
 
