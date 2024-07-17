@@ -12,16 +12,16 @@
 
 ## Installation
 
-```sh
-$ go install github.com/balintb/clipsyboogie@latest
+```console
+go install github.com/balintb/clipsyboogie@latest
 ```
 
 Make sure you have Go environment variables set up, especially `GOPATH`, and your `PATH` with `$GOPATH/bin`.
 
 To install a LaunchAgent (run in the background), use
 
-```sh
-$ clipsyboogie install
+```console
+clipsyboogie install
 ```
 
 ## Configuration
@@ -39,7 +39,7 @@ Pull requests are welcome for a proper file-based config.
 
 ### Commands
 
-```
+```console
 add, a        Record clipboard content
 get, g        Get latest N entries
 install, i    Install LaunchAgent
