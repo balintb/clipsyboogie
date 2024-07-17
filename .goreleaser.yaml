@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+
+version: 2
+
+project_name: clipsyboogie
+report_sizes: true
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+    - go run github.com/google/osv-scanner/cmd/osv-scanner@latest -r .
+
+builds:
+  - id: default
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+
+release:
+  ids: [ default ]
+  draft: true
+  replace_existing_draft: true
+  target_commitish: "{{ .Commit }}"
+  prerelease: auto
+  mode: replace
+  header: |
+    ## `{{ .Tag }}` release
+  footer: |
+    ## Installing
+    
+    Please note clipsyboogie has only been tested on macOS. To install via Go:
+    
+    ```console
+    go install github.com/balintb/clipsyboogie@latest
+    ```
+
+    For [Homebrew][brew_url] users (macOS only):
+    
+    ```console
+    brew install balintb/tap/clipsyboogie
+    ```
+    
+    [brew_url]: https://brew.sh
+  disable: false
+  skip_upload: false
+
+brews:
+  -
+    repository:
+      owner: balintb
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.GITHUB_TOKEN }}"
+      pull_request:
+        enabled: true
+      git:
+        url: "git@github.com:balintb/homebrew-tap.git"
+        private_key: "{{ .Env.PRIVATE_KEY_PATH }}"
+    commit_author:
+      name: balintb
+      email: balintb@users.noreply.github.com
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+#    folder: Formula
+    homepage: "https://github.com/balintb/clipsyboogie"
+    description: |
+      macOS cli clipboard logger
+    license: MIT
+    skip_upload: false
+    dependencies:
+      - name: git
+      - name: npm
+
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
