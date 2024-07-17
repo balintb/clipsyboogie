@@ -12,7 +12,7 @@
 
 ## Installation
 
-### Homebrew
+### Homebrew ![clipsyboogie homebrew version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/balintb/homebrew-tap/master/Info/clipsyboogie.json&query=$.versions.stable&label=homebrew)
 
 The easiest way to install `clipsyboogie` is via [Homebrew](https://brew.sh):
 
