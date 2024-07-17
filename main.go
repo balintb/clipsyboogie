@@ -60,6 +60,7 @@ func main() {
 
 	app := &cli.App{
 		Name:        "Clipsyboogie",
+		Version:     "0.1.0",
 		Usage:       "Clipboard monitoring via command-line.",
 		Description: "Clipsyboogie provides a way to record clipboard history via command-line into an SQLite database. It can run as a listener or be used to record the current contents & grab the last N contents",
 		Flags:       flags,
