@@ -1,6 +1,11 @@
 # Clipsyboogie - cli clipboard logging
 
-`clipsyboogie` is a simple cli tool to capture and retrieve the current system clipboard contents.
+`clipsyboogie` is a simple cli tool written in Go to capture and retrieve the current system clipboard contents.
+
+![macOS cli](https://img.shields.io/badge/macOS-cli-blue?logo=apple)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/balintb/clipsyboogie)
+![GitHub License](https://img.shields.io/github/license/balintb/clipsyboogie)
+![GitHub branch check runs](https://img.shields.io/github/check-runs/balintb/clipsyboogie/main)
 
 > [!CAUTION]
 > `clipsyboogie` has been tested on macOS only. `install` and `uninstall` are macOS-specific.
