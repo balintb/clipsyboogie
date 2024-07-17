@@ -59,6 +59,7 @@ To start in the background, `clipsyboogie install` creates a plist in `~/Library
 - [ ] Add `load` / `unload` commands to load/unload via `launchctl`
 - [ ] File-based configuration
 - [ ] Configurable retention period or number of items to store
+- [ ] Homebrew tap
 
 ## License
 
