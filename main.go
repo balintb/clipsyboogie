@@ -258,9 +258,14 @@ func initDb(ctx context.Context) *gorm.DB {
 }
 
 func LaunchAgent(runAtLoad bool, interval uint) *Agent {
+	executable, err := os.Executable()
+	if err != nil {
+		log.Fatalf("Cannot find path of executable: %s", err)
+	}
+
 	return &Agent{
 		Label:     "com.balintb.clipsyboogie",
-		Program:   fmt.Sprintf("%s/bin/clipsyboogie", os.Getenv("GOPATH")),
+		Program:   executable,
 		Interval:  interval,
 		KeepAlive: true,
 		RunAtLoad: runAtLoad,
