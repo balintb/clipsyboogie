@@ -60,7 +60,7 @@ func main() {
 
 	app := &cli.App{
 		Name:        "Clipsyboogie",
-		Version:     "0.1.0",
+		Version:     "0.1.1",
 		Usage:       "Clipboard monitoring via command-line.",
 		Description: "Clipsyboogie provides a way to record clipboard history via command-line into an SQLite database. It can run as a listener or be used to record the current contents & grab the last N contents",
 		Flags:       flags,
@@ -258,9 +258,14 @@ func initDb(ctx context.Context) *gorm.DB {
 }
 
 func LaunchAgent(runAtLoad bool, interval uint) *Agent {
+	executable, err := os.Executable()
+	if err != nil {
+		log.Fatalf("Cannot find path of executable: %s", err)
+	}
+
 	return &Agent{
 		Label:     "com.balintb.clipsyboogie",
-		Program:   fmt.Sprintf("%s/bin/clipsyboogie", os.Getenv("GOPATH")),
+		Program:   executable,
 		Interval:  interval,
 		KeepAlive: true,
 		RunAtLoad: runAtLoad,
